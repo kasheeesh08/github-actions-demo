@@ -1,4 +1,4 @@
-name: Demo Action
+name: Cache Demo
 
 on:
   push:
@@ -6,6 +6,19 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache
+          key: cache-d7d3d36
+
+      - name: prime-cache-d7d3d36
+        run: echo "Cache hit? ${{ steps.cache.outputs.cache-hit }}"
+
       - name: 24f3002855@ds.study.iitm.ac.in
-        run: echo "Hello, world!"
+        run: echo "Done"
